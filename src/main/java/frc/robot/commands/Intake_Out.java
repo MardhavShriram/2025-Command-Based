@@ -5,12 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
+import frc.robot.subsystems.Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class Intake_Up extends Command {
+public class Intake_Out extends Command {
+  Intake intake;
   /** Creates a new Intake_Up. */
-  public Intake_Up() {
+  public Intake_Out() {
+    this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(this.intake);
   }
 
   // Called when the command is initially scheduled.
@@ -19,11 +24,15 @@ public class Intake_Up extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    this.intake.intake_move(Constants.Intake_Speed.intake_out_speed);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    this.intake.intake_move(0);
+  }
 
   // Returns true when the command should end.
   @Override
