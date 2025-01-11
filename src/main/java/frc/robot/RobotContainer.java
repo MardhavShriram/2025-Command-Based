@@ -9,6 +9,9 @@ import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Intake_In;
+import frc.robot.commands.Intake_Out;
+import frc.robot.commands.PivotDown;
+import frc.robot.commands.PivotUp;
 import frc.robot.commands.ShootOut;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -75,8 +78,12 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-    //Wtf is going on here? I dont like this game
-    intake_in.whileTrue(intake.Intake_In());
+   //Setting the Buttons to the Commands
+    intake_in.whileTrue(new Intake_In(intake));
+    intake_out.whileTrue(new Intake_Out(intake));
+    pivot_up.whileTrue(new PivotUp(pivot));
+    pivot_down.whileTrue(new PivotDown(pivot));
+    shoot.whileTrue(new ShootOut(shooter));
   }
 
   /**

@@ -13,7 +13,7 @@ public class Intake_In extends Command {
   /** Creates a new Intake_Down. */
   Intake intake;
 
-  public Intake_In() {
+  public Intake_In(Intake intake) {
     this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.intake);

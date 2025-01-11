@@ -12,7 +12,7 @@ import frc.robot.subsystems.Pivot;
 public class PivotUp extends Command {
   /** Creates a new PivotUp. */
   Pivot pivot;
-  public PivotUp() {
+  public PivotUp(Pivot pivot) {
     this.pivot = pivot;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.pivot);

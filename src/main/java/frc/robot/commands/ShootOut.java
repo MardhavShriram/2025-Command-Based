@@ -12,7 +12,7 @@ import frc.robot.subsystems.Shooter;
 public class ShootOut extends Command {
   /** Creates a new ShootOut. */
   Shooter shooter;
-  public ShootOut() {
+  public ShootOut(Shooter shooter) {
     this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.shooter);
