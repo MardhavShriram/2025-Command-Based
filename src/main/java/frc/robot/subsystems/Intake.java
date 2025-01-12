@@ -27,25 +27,29 @@ public class Intake extends SubsystemBase {
 
   public Intake() {
   //Setting the Motor Ids
-  SparkMax l_intake = new SparkMax(Constants.IntakeCAN_IDs.LeftIntakeMotor, MotorType.kBrushless);
-  SparkMax r_intake = new SparkMax(Constants.IntakeCAN_IDs.RightIntakeMotor, MotorType.kBrushless);
+  l_intake = new SparkMax(Constants.IntakeCAN_IDs.LeftIntakeMotor, MotorType.kBrushless);
+  r_intake = new SparkMax(Constants.IntakeCAN_IDs.RightIntakeMotor, MotorType.kBrushless);
+
+  l_intake_configure = new SparkMaxConfig();
+  r_intake_configure = new SparkMaxConfig();
+
+  //Set the Idle Mode
+  r_intake_configure
+  .idleMode(IdleMode.kBrake);
+  l_intake_configure
+  .idleMode(IdleMode.kBrake);
 
   //Set the Configurations
   l_intake.configure(l_intake_configure, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   r_intake.configure(r_intake_configure, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-  //Set the Idle Mode
-  r_intake_configure.idleMode(IdleMode.kBrake);
-  l_intake_configure.idleMode(IdleMode.kBrake);
-  
   }
-
+  public void intake_move (double intake_speed) {
+    l_intake.set(intake_speed);
+    r_intake.set(intake_speed);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void intake_move (double intake_speed){
-    l_intake.set(intake_speed);
-    r_intake.set(intake_speed);
-  }
+ 
 }

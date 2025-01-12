@@ -10,15 +10,13 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.Intake_In;
 import frc.robot.commands.Intake_Out;
-import frc.robot.commands.PivotDown;
-import frc.robot.commands.PivotUp;
+import frc.robot.commands.PivotSet;
 import frc.robot.commands.ShootOut;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Shooter;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -48,14 +46,18 @@ public class RobotContainer {
   private final Joystick r_joystick = new Joystick(1);
 
   //Defining the Buttons
+  //Joystick Button 1
   private final JoystickButton intake_in = new JoystickButton(l_joystick, 1);
+  //button 2
   private final JoystickButton intake_out = new JoystickButton(l_joystick, 2);
-  private final JoystickButton pivot_up = new JoystickButton(l_joystick, 3);
-  private final JoystickButton pivot_down = new JoystickButton(l_joystick, 4);
-  private final JoystickButton shoot = new JoystickButton(l_joystick, 5);
-
-  //Defining the PID Controller
-  private final PIDController pivot_PID = new PIDController(0.1, 0.1, 0.1);
+  //button 3
+  private final JoystickButton pivot_1 = new JoystickButton(l_joystick, 3);
+  //button 4
+  private final JoystickButton pivot_2 = new JoystickButton(l_joystick, 4);
+  //button 5
+  private final JoystickButton pivot_3 = new JoystickButton(l_joystick, 5);
+  //button 6
+  private final JoystickButton shoot = new JoystickButton(l_joystick, 6);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -64,8 +66,6 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
-    //Setting the PID Controller Tolerance
-    pivot_PID.setTolerance(0.1);
   }
 
   /**
@@ -88,8 +88,9 @@ public class RobotContainer {
    //Setting the Buttons to the Commands
     intake_in.whileTrue(new Intake_In(intake));
     intake_out.whileTrue(new Intake_Out(intake));
-    pivot_up.whileTrue(new PivotUp(pivot));
-    pivot_down.whileTrue(new PivotDown(pivot));
+    pivot_1.onTrue(new PivotSet(pivot, Constants.Pivot.angle_1));
+    pivot_2.onTrue(new PivotSet(pivot, Constants.Pivot.angle_2));
+    pivot_3.onTrue(new PivotSet(pivot, Constants.Pivot.angle_3));
     shoot.whileTrue(new ShootOut(shooter));
   }
 

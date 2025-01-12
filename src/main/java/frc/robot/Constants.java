@@ -31,14 +31,19 @@ public final class Intake_Speed {
 public static final double intake_out_speed = -0.5;
 public static final double intake_in_speed = 0.5;
 }
-public final class Pivot_IDs {
-  public static final int l_pivot_ID = 7;
-  public static final int r_pivot_ID = 8;
+public final class Pivot {
+  public static final int left_id = 7;
+  public static final int right_id = 8;
+
+  public static final int angle_1 = 0;
+  public static final int angle_2 = 30;
+  public static final int angle_3 = 50;
+
+  public static final double kp = 1;
+  public static final double ki = 0;
+  public static final double kd = 0;
 }
-public final class pivot_speed {
-  public static final double pivot_up_speed = 0.5;
-  public static final double pivot_down_speed = -0.5;
-}
+
 public final class Shooter_IDs {
   public static final int l_shooter_ID = 9;
   public static final int r_shooter_ID = 10;
@@ -46,4 +51,5 @@ public final class Shooter_IDs {
   public final class shooter_speed {
   public static final double shooter_speed = 0.75;
   }
+
 }

@@ -12,7 +12,6 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -25,11 +24,9 @@ public class DriveTrain extends SubsystemBase {
   SparkMax front_left;
 
   // Defining the Configurations per Motor
-  SparkMaxConfig back_right_config;
-  SparkMaxConfig front_right_config;
-  SparkMaxConfig back_left_config;
-  SparkMaxConfig front_left_config;
-
+  SparkMaxConfig left_config;
+  SparkMaxConfig right_config;
+ 
   //Defining the Positional Variables
   double rx;
   double ly;
@@ -44,35 +41,35 @@ public class DriveTrain extends SubsystemBase {
     back_left = new SparkMax(Constants.DriveCAN_IDs.BackLeftMotor, MotorType.kBrushless);
     front_left = new SparkMax(Constants.DriveCAN_IDs.FrontLeftMotor, MotorType.kBrushless);
 
-     //Connecting the Configurations to the Motor
-     front_right.configure(front_right_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-     front_left.configure(front_left_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-     back_left.configure(back_left_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-     back_right.configure(back_right_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    left_config = new SparkMaxConfig();
+    right_config = new SparkMaxConfig();
 
     //Setting the Motor Configurations for the Idle Mode
-    back_right_config.idleMode(IdleMode.kBrake);
-    front_right_config.idleMode(IdleMode.kBrake);
-    back_left_config.idleMode(IdleMode.kBrake);
-    front_left_config.idleMode(IdleMode.kBrake);
+    right_config
+    .follow(front_right)
+    .idleMode(IdleMode.kBrake);
+    left_config
+    .follow(front_left)
+    .idleMode(IdleMode.kBrake);
 
-    //Setting the Back Motors to Follow the Front Motors
-    back_left_config.follow(front_left);
-    back_right_config.follow(front_right);
+     //Connecting the Configurations to the Motor
+     front_right.configure(right_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+     front_left.configure(left_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+     back_left.configure(left_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+     back_right.configure(right_config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+  }
+  public void arcadeDrive(Joystick l_joystick, Joystick r_joystick) {
+  
+    //Getting the Joystick Values
+    rx = r_joystick.getX();
+    ly = l_joystick.getY();
+  
+    //Setting the Motor Speeds
+    front_right.set(ly-rx);
+    front_left.set(ly+rx);
   }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-}
-
-  public void arcadeDrive(Joystick l_joystick, Joystick r_joystick) {
-  
-  //Getting the Joystick Values
-  rx = r_joystick.getX();
-  ly = l_joystick.getY();
-
-  //Setting the Motor Speeds
-  front_right.set(ly-rx);
-  front_left.set(ly+rx);
 }
 }

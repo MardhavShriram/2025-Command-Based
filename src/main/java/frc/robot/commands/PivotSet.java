@@ -5,17 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.subsystems.Pivot;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class PivotUp extends Command {
-  /** Creates a new PivotUp. */
-  Pivot pivot;
-  public PivotUp(Pivot pivot) {
-    this.pivot = pivot;
+public class PivotSet extends Command {
+  Pivot pivot_local;
+  double angle;
+  /** Creates a new PivotSet. */
+  public PivotSet(Pivot pivot,double angle) {
+    this.pivot_local = pivot;
+    this.angle = angle;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.pivot);
+    addRequirements(this.pivot_local);
   }
 
   // Called when the command is initially scheduled.
@@ -25,14 +26,12 @@ public class PivotUp extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.pivot.pivot_PID(Constants.pivot_speed.pivot_up_speed);
+    this.pivot_local.set_angle(angle);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    this.pivot.pivot_PID(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

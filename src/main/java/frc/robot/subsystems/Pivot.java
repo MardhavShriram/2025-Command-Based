@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -42,35 +43,41 @@ public class Pivot extends SubsystemBase {
   
   public Pivot() {
     //Defining the PID Controller
-    pivot_PID = new PIDController(0.1, 0.1, 0.1);
+    pivot_PID = new PIDController(Constants.Pivot.kp, Constants.Pivot.ki,Constants.Pivot.kd);
 
     //Defining the Motor IDs
-    l_pivot = new SparkMax(Constants.Pivot_IDs.l_pivot_ID, MotorType.kBrushless);
-    r_pivot = new SparkMax(Constants.Pivot_IDs.r_pivot_ID, MotorType.kBrushless);
+    l_pivot = new SparkMax(Constants.Pivot.left_id, MotorType.kBrushless);
+    r_pivot = new SparkMax(Constants.Pivot.right_id, MotorType.kBrushless);
 
     //Defining the Alternate Encoders
     l_pivot_encoder = l_pivot.getAlternateEncoder();
     r_pivot_encoder = r_pivot.getAlternateEncoder();
 
-    //
+    l_pivot_config = new SparkMaxConfig();
+    r_pivot_config = new SparkMaxConfig();
 
-    //Setting the Configuration between Motors
-    l_pivot.configure(l_pivot_config,ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
-    r_pivot.configure(r_pivot_config,ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
 
     //IdleMode for the Motors
     r_pivot_config
       .idleMode(IdleMode.kBrake);
     l_pivot_config
       .idleMode(IdleMode.kBrake);
+
+    //Setting the Configuration between Motors
+    l_pivot.configure(l_pivot_config,ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
+    r_pivot.configure(r_pivot_config,ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
+
+  }
+  public void set_angle(double angle) {
+    current_angle = r_pivot_encoder.getPosition();
+    pivot_output = pivot_PID.calculate(current_angle, angle);
+    l_pivot.set(MathUtil.clamp(pivot_output, -.75, .75));
+    r_pivot.set(MathUtil.clamp(pivot_output, -.75, .75));
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public void pivot_PID(double pivot_angle){
-    r_pivot.set(pivot_output);
-    l_pivot.set(pivot_output);
-  }
+ 
 }
