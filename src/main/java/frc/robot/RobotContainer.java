@@ -18,6 +18,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -53,12 +54,18 @@ public class RobotContainer {
   private final JoystickButton pivot_down = new JoystickButton(l_joystick, 4);
   private final JoystickButton shoot = new JoystickButton(l_joystick, 5);
 
+  //Defining the PID Controller
+  private final PIDController pivot_PID = new PIDController(0.1, 0.1, 0.1);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //Setting the Default Comammand
     dt.setDefaultCommand(new ArcadeDrive(dt, l_joystick, r_joystick));
     // Configure the trigger bindings
     configureBindings();
+
+    //Setting the PID Controller Tolerance
+    pivot_PID.setTolerance(0.1);
   }
 
   /**

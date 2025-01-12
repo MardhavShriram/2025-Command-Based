@@ -25,13 +25,13 @@ public class PivotUp extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.pivot.pivot_move(Constants.pivot_speed.pivot_up_speed);
+    this.pivot.pivot_PID(Constants.pivot_speed.pivot_up_speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.pivot.pivot_move(0);
+    this.pivot.pivot_PID(0);
   }
 
   // Returns true when the command should end.
