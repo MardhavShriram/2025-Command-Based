@@ -23,17 +23,16 @@ public final class DriveCAN_IDs {
   public static final int FrontRightMotor = 3;
   public static final int BackRightMotor = 4;
 }
-public final class IntakeCAN_IDs {
-  public static final int LeftIntakeMotor = 5;
-  public static final int RightIntakeMotor = 6;
-}
-public final class Intake_Speed {
+public final class Intake{
+  public static final int LeftIntake_id = 5;
+  public static final int RightIntake_id = 6;
+
 public static final double intake_out_speed = -0.5;
 public static final double intake_in_speed = 0.5;
 }
 public final class Pivot {
-  public static final int left_id = 7;
-  public static final int right_id = 8;
+  public static final int leftp_id = 7;
+  public static final int rightp_id = 8;
 
   public static final int angle_1 = 0;
   public static final int angle_2 = 30;
@@ -44,12 +43,10 @@ public final class Pivot {
   public static final double kd = 0;
 }
 
-public final class Shooter_IDs {
-  public static final int l_shooter_ID = 9;
-  public static final int r_shooter_ID = 10;
-}
-  public final class shooter_speed {
-  public static final double shooter_speed = 0.75;
-  }
+public final class Shooter {
+  public static final int l_shooter_id = 9;
+  public static final int r_shooter_id = 10;
 
+  public static final double shooter_speed = 0.75;
+}
 }

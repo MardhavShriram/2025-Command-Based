@@ -25,7 +25,7 @@ public class Intake_Out extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.intake.intake_move(Constants.Intake_Speed.intake_out_speed);
+    this.intake.intake_move(Constants.Intake.intake_out_speed);
   }
 
   // Called once the command ends or is interrupted.

@@ -25,7 +25,7 @@ public class ShootOut extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.shooter.shoot(Constants.shooter_speed.shooter_speed);
+    this.shooter.shoot(Constants.Shooter.shooter_speed);
   }
 
   // Called once the command ends or is interrupted.

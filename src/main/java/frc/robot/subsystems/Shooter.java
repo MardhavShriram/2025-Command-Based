@@ -10,6 +10,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
@@ -23,8 +24,8 @@ public class Shooter extends SubsystemBase {
   
   public Shooter() {
     //Defining the Motor IDs
-    l_shooter = new SparkMax(1, SparkMax.MotorType.kBrushless);
-    r_shooter = new SparkMax(2, SparkMax.MotorType.kBrushless);
+    l_shooter = new SparkMax(Constants.Shooter.l_shooter_id, SparkMax.MotorType.kBrushless);
+    r_shooter = new SparkMax(Constants.Shooter.r_shooter_id, SparkMax.MotorType.kBrushless);
 
     //Defining the Configurations
     l_shooter_config = new SparkMaxConfig();

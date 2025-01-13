@@ -46,8 +46,8 @@ public class Pivot extends SubsystemBase {
     pivot_PID = new PIDController(Constants.Pivot.kp, Constants.Pivot.ki,Constants.Pivot.kd);
 
     //Defining the Motor IDs
-    l_pivot = new SparkMax(Constants.Pivot.left_id, MotorType.kBrushless);
-    r_pivot = new SparkMax(Constants.Pivot.right_id, MotorType.kBrushless);
+    l_pivot = new SparkMax(Constants.Pivot.leftp_id, MotorType.kBrushless);
+    r_pivot = new SparkMax(Constants.Pivot.rightp_id, MotorType.kBrushless);
 
     //Defining the Alternate Encoders
     l_pivot_encoder = l_pivot.getAlternateEncoder();
