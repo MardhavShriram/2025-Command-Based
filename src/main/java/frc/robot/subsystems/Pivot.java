@@ -31,9 +31,9 @@ public class Pivot extends SubsystemBase {
   RelativeEncoder l_pivot_encoder;
   RelativeEncoder r_pivot_encoder;
 
-  //Defining the Current Angle and Error Angle
+  //Defining the Current Angle
   double current_angle;
-  double error_angle;
+
   //Defining the PID Output
   double pivot_output;
 
@@ -49,9 +49,9 @@ public class Pivot extends SubsystemBase {
     l_pivot = new SparkMax(Constants.Pivot.leftp_id, MotorType.kBrushless);
     r_pivot = new SparkMax(Constants.Pivot.rightp_id, MotorType.kBrushless);
 
-    //Defining the Alternate Encoders
-    l_pivot_encoder = l_pivot.getAlternateEncoder();
-    r_pivot_encoder = r_pivot.getAlternateEncoder();
+    //Defining the Encoders
+    l_pivot_encoder = l_pivot.getEncoder();
+    r_pivot_encoder = r_pivot.getEncoder();
 
     l_pivot_config = new SparkMaxConfig();
     r_pivot_config = new SparkMaxConfig();
@@ -79,5 +79,4 @@ public class Pivot extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
- 
 }
