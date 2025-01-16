@@ -13,32 +13,37 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.jni.ArmFeedforwardJNI;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Pivot extends SubsystemBase {
   /** Creates a new Pivot. */
-  //Defining the Pivot Motors
+  //Creating the Pivot Motors
   SparkMax l_pivot;
   SparkMax r_pivot;
 
-  //Defining the Configurations for the Pivot Motors
+  //Creating the Configurations for the Pivot Motors
   SparkMaxConfig l_pivot_config;
   SparkMaxConfig r_pivot_config;
 
-  //Defining the Encoders
+  //Creating the Encoders
   RelativeEncoder l_pivot_encoder;
   RelativeEncoder r_pivot_encoder;
 
-  //Defining the Current Angle
+  //Creating the Current Angle
   double current_angle;
 
-  //Defining the PID Output
+  //Creating the PID Output
   double pivot_output;
 
-  //Defining the PID Controller
+  //Creating the PID Controller
   PIDController pivot_PID;
+
+  //Creating the Feed Forward
+  ArmFeedforward feedfoward;
   
   
   public Pivot() {
@@ -67,10 +72,13 @@ public class Pivot extends SubsystemBase {
     l_pivot.configure(l_pivot_config,ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
     r_pivot.configure(r_pivot_config,ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
 
+    //Feedforward
+    feedfoward = new ArmFeedforward(Constants.Pivot.ks, Constants.Pivot.kg, Constants.Pivot.kv, Constants.Pivot.ka);
   }
   public void set_angle(double angle) {
     current_angle = r_pivot_encoder.getPosition();
     pivot_output = pivot_PID.calculate(current_angle, angle);
+    feedfoward.calculate(.5,2,3);
     l_pivot.set(MathUtil.clamp(pivot_output, -.75, .75));
     r_pivot.set(MathUtil.clamp(pivot_output, -.75, .75));
   }
